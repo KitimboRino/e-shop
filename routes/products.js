@@ -6,7 +6,7 @@ const mongoose = require('mongoose');
 
 // Products with specific fields (more effiecient in memory when loading to client)
 router.get(`/`, async (req, res) => {
-  const productList = await Product.find().select('name image -_id');
+  const productList = await Product.find().populate('category');
 
   if (!productList) {
     res.status(500).json({ success: false });
@@ -17,7 +17,7 @@ router.get(`/`, async (req, res) => {
 
 // Specific product with id
 router.get(`/:id`, async (req, res) => {
-  const product = await Product.findById(req.params.id);
+  const product = await Product.findById(req.params.id).populate('category');
 
   if (!product) {
     res.status(500).json({ success: false });
