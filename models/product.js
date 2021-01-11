@@ -21,10 +21,11 @@ const productSchema = mongoose.Schema({
     default: '',
   },
 
-  images: [{
-    type: String,
-  }],
-  
+  images: [
+    {
+      type: String,
+    },
+  ],
 
   brand: {
     type: String,
@@ -68,6 +69,15 @@ const productSchema = mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+});
+
+// Change _.id to id
+productSchema.virtual('id').get(function () {
+  return this._id.toHexString();
+});
+
+productSchema.set('toJSON', {
+  virtuals: true,
 });
 
 module.exports = mongoose.model('Product', productSchema);
