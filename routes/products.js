@@ -4,7 +4,7 @@ const Category = require('../models/category');
 const router = express.Router();
 const mongoose = require('mongoose');
 
-// Products with specific fields (more effiecient in memory when loading to client)
+//
 router.get(`/`, async (req, res) => {
   const productList = await Product.find().populate('category');
 
@@ -48,6 +48,34 @@ router.post(`/`, async (req, res) => {
   product = await product.save();
 
   if (!product) return res.status(500).send('The product cannot be created');
+
+  res.send(product);
+});
+
+// Updating Product details
+router.put('/:id', async (req, res) => {
+  const category = await Category.findById(req.body.category);
+  if (!category) return res.status(400).send('Invalid Category');
+
+  const product = await Product.findByIdAndUpdate(
+    req.params.id,
+    {
+      name: req.body.name,
+      description: req.body.description,
+      richDescription: req.body.richDescription,
+      image: req.body.image,
+      brand: req.body.brand,
+      price: req.body.price,
+      category: req.body.category,
+      countInStock: req.body.countInStock,
+      rating: req.body.rating,
+      numReviews: req.body.numReviews,
+      isFeatured: req.body.isFeatured,
+    },
+    { new: true }
+  );
+
+  if (!product) return res.status(404).send('the product cannot be created!');
 
   res.send(product);
 });
