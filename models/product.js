@@ -21,11 +21,10 @@ const productSchema = mongoose.Schema({
     default: '',
   },
 
-  images: [
-    {
-      type: String,
-    },
-  ],
+  images: [{
+    type: String,
+  }],
+  
 
   brand: {
     type: String,
@@ -37,7 +36,7 @@ const productSchema = mongoose.Schema({
     default: '',
   },
 
-  Category: {
+  category: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Category',
     required: true,
@@ -51,6 +50,11 @@ const productSchema = mongoose.Schema({
   },
 
   rating: {
+    type: Number,
+    default: 0,
+  },
+
+  numReviews: {
     type: Number,
     default: 0,
   },
