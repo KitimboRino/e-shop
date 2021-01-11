@@ -11,7 +11,7 @@ const userSchema = mongoose.Schema({
     required: true,
   },
 
-  passwordHarsh: {
+  passwordHash: {
     type: String,
     required: true,
   },
@@ -51,7 +51,6 @@ const userSchema = mongoose.Schema({
     default: '',
   },
 });
-
 
 userSchema.virtual('id').get(function () {
   return this._id.toHexString();
