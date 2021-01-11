@@ -103,4 +103,17 @@ router.delete('/:id', (req, res) => {
     });
 });
 
+// Product count API
+router.get('/get/count', async (req, res) => {
+  const productCount = await Product.countDocuments((count) => count);
+
+  if (!productCount) {
+    res.status(500).json({ success: false });
+  }
+
+  res.send({
+    productCount: productCount,
+  });
+});
+
 module.exports = router;
