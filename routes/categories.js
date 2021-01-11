@@ -70,7 +70,7 @@ router.delete('/:id', (req, res) => {
       }
     })
     .catch((err) => {
-      return res.status(400).json({ success: false, erroe: err });
+      return res.status(400).json({ success: false, error: err });
     });
 });
 

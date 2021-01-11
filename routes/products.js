@@ -54,6 +54,10 @@ router.post(`/`, async (req, res) => {
 
 // Updating Product details
 router.put('/:id', async (req, res) => {
+  if (!mongoose.isValidObjectId(req.params.id)) {
+    res.status(400).send('Invalid Product Id');
+  }
+
   const category = await Category.findById(req.body.category);
   if (!category) return res.status(400).send('Invalid Category');
 
@@ -78,6 +82,25 @@ router.put('/:id', async (req, res) => {
   if (!product) return res.status(404).send('the product cannot be created!');
 
   res.send(product);
+});
+
+// delete a product using its id (using then & catch)
+router.delete('/:id', (req, res) => {
+  Product.findByIdAndRemove(req.params.id)
+    .then((product) => {
+      if (product) {
+        return res
+          .status(200)
+          .json({ success: true, message: 'the product is deleted' });
+      } else {
+        return res
+          .status(404)
+          .json({ success: false, message: 'product not found' });
+      }
+    })
+    .catch((err) => {
+      return res.status(400).json({ success: false, error: err });
+    });
 });
 
 module.exports = router;
