@@ -55,7 +55,7 @@ router.put('/:id', async (req, res) => {
   res.send(category);
 });
 
-// delete a categoty using its id (using then & catch)
+// Delete a categoty using its id (using then & catch)
 router.delete('/:id', (req, res) => {
   Category.findByIdAndRemove(req.params.id)
     .then((category) => {
