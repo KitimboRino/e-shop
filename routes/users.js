@@ -95,7 +95,7 @@ router.post('/register', async (req, res) => {
   res.send(user);
 });
 
-// Delete a categoty using its id (using then & catch)
+// Delete a Users using their id (using then & catch)
 router.delete('/:id', (req, res) => {
   Category.findByIdAndRemove(req.params.id)
     .then((user) => {
