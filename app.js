@@ -31,7 +31,6 @@ app.use(`${api}/products`, productsRoutes);
 app.use(`${api}/users`, usersRoutes);
 app.use(`${api}/orders`, ordersRoutes);
 
-// const Product = require('./models/product');
 
 // Database
 mongoose.connect(process.env.CONNECTION_STRING, {

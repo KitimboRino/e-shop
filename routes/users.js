@@ -13,7 +13,7 @@ router.get('/', async (req, res) => {
   res.send(userList);
 });
 
-// Specific USer with id
+// Specific User with id
 router.get('/:id', async (req, res) => {
   const user = await User.findById(req.params.id).select('-passwordHash');
 
@@ -31,7 +31,7 @@ router.post('/', async (req, res) => {
   let user = new User({
     name: req.body.name,
     email: req.body.email,
-    passwordHash: bcrypt.hashSync(req.body.passwordHash, 10),
+    passwordHash: bcrypt.hashSync(req.body.password, 10),
     phone: req.body.phone,
     isAdmin: req.body.isAdmin,
     street: req.body.street,
@@ -71,6 +71,27 @@ router.post('/login', async (req, res) => {
   }
 
   return res.status(200).send(user);
+});
+
+// Register
+router.post('/register', async (req, res) => {
+  let user = new User({
+    name: req.body.name,
+    email: req.body.email,
+    passwordHash: bcrypt.hashSync(req.body.password, 10),
+    phone: req.body.phone,
+    isAdmin: req.body.isAdmin,
+    street: req.body.street,
+    apartment: req.body.apartment,
+    zip: req.body.zip,
+    city: req.body.city,
+    country: req.body.country,
+  });
+  user = await user.save();
+
+  if (!user) return res.status(404).send('The user cannot be created!');
+
+  res.send(user);
 });
 
 module.exports = router;
