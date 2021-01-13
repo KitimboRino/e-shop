@@ -2,7 +2,7 @@ const Category = require('../models/category');
 const express = require('express');
 const router = express.Router();
 
-//Category list
+//Retrieving Category list
 router.get('/', async (req, res) => {
   const categoryList = await Category.find();
 
@@ -12,7 +12,7 @@ router.get('/', async (req, res) => {
   res.status(200).send(categoryList);
 });
 
-//
+//Retrieving Category by id
 router.get('/:id', async (req, res) => {
   const category = await Category.findById(req.params.id);
 
@@ -24,7 +24,7 @@ router.get('/:id', async (req, res) => {
   res.status(200).send(category);
 });
 
-// Saving to database (async & await)
+// Saving Category to database (async & await)
 router.post('/', async (req, res) => {
   let category = new Category({
     name: req.body.name,
@@ -33,7 +33,7 @@ router.post('/', async (req, res) => {
   });
   category = await category.save();
 
-  if (!category) return res.status(404).send('the cateory cannot be created!');
+  if (!category) return res.status(404).send('The cateory cannot be created!');
 
   res.send(category);
 });
